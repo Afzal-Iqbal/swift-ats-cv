@@ -12,9 +12,11 @@ interface ProjectsFormProps {
 }
 
 export const ProjectsForm = ({ data, onChange }: ProjectsFormProps) => {
+  const projects = data || [];
+  
   const addProject = () => {
     onChange([
-      ...data,
+      ...projects,
       {
         id: Date.now().toString(),
         name: "",
@@ -27,12 +29,12 @@ export const ProjectsForm = ({ data, onChange }: ProjectsFormProps) => {
 
   const updateProject = (id: string, field: keyof Project, value: any) => {
     onChange(
-      data.map((project) => (project.id === id ? { ...project, [field]: value } : project))
+      projects.map((project) => (project.id === id ? { ...project, [field]: value } : project))
     );
   };
 
   const removeProject = (id: string) => {
-    onChange(data.filter((project) => project.id !== id));
+    onChange(projects.filter((project) => project.id !== id));
   };
 
   return (
@@ -41,7 +43,7 @@ export const ProjectsForm = ({ data, onChange }: ProjectsFormProps) => {
         <CardTitle className="text-xl">Projects</CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
-        {data.map((project) => (
+        {projects.map((project) => (
           <div key={project.id} className="p-4 border border-border rounded-lg space-y-4">
             <div className="flex justify-between items-start">
               <div className="space-y-4 flex-1">
