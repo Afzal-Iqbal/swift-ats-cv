@@ -45,13 +45,12 @@ export const ProfessionalTemplate = ({ data }: ProfessionalTemplateProps) => {
           </h2>
           {data.workExperience.map((exp) => (
             <div key={exp.id} className="mb-3">
-              <div className="flex justify-between items-baseline mb-1">
-                <h3 className="font-bold">{exp.role}</h3>
-                <span className="text-sm">
-                  {formatDate(exp.startDate, false)} - {exp.current ? "Present" : formatDate(exp.endDate, false)}
-                </span>
+              <div className="mb-1">
+                <h3 className="font-bold">{exp.role} — {exp.company}</h3>
               </div>
-              <div className="text-sm mb-1 italic">{exp.company}</div>
+              <div className="text-sm mb-1 italic">
+                {exp.location} | {formatDate(exp.startDate, false)} – {exp.current ? "Present" : formatDate(exp.endDate, false)}
+              </div>
               <ul className="list-none pl-0 text-sm">
                 {exp.responsibilities.filter(r => r.trim()).map((resp, idx) => (
                   <li key={idx} className="mb-1">• {resp}</li>

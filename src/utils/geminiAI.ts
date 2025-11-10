@@ -62,10 +62,13 @@ Return ONLY the JSON array, no other text.`;
     });
 
     if (!response.ok) {
-      throw new Error(`Gemini API error: ${response.statusText}`);
+      const errorData = await response.text();
+      console.error("Gemini API error response:", errorData);
+      throw new Error(`Gemini API error (${response.status}): ${errorData}`);
     }
 
     const data = await response.json();
+    console.log("Gemini API response:", data);
     const text = data.candidates[0].content.parts[0].text;
     
     // Extract JSON from markdown code blocks if present

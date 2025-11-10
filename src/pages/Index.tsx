@@ -49,7 +49,17 @@ const Index = () => {
     if (resumes.length > 0 && !currentResumeId) {
       const firstResume = resumes[0];
       setCurrentResumeId(firstResume.id);
-      setResumeData(firstResume.data);
+      
+      // Ensure all work experience entries have location field
+      const updatedData = {
+        ...firstResume.data,
+        workExperience: firstResume.data.workExperience.map(exp => ({
+          ...exp,
+          location: exp.location || ""
+        }))
+      };
+      
+      setResumeData(updatedData);
     } else if (resumes.length === 0 && user && !currentResumeId) {
       // Create initial resume
       createResume("My Resume", resumeData).then((id) => {
