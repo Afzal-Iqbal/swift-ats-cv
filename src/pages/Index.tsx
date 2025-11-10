@@ -13,6 +13,7 @@ import { SummaryForm } from "@/components/ResumeBuilder/SummaryForm";
 import { WorkExperienceForm } from "@/components/ResumeBuilder/WorkExperienceForm";
 import { EducationForm } from "@/components/ResumeBuilder/EducationForm";
 import { SkillsForm } from "@/components/ResumeBuilder/SkillsForm";
+import { ProjectsForm } from "@/components/ResumeBuilder/ProjectsForm";
 import { ProfessionalTemplate } from "@/components/ResumePreview/ProfessionalTemplate";
 import { ModernTemplate } from "@/components/ResumePreview/ModernTemplate";
 import { ATSTemplate } from "@/components/ResumePreview/ATSTemplate";
@@ -45,6 +46,7 @@ const Index = () => {
     summary: "",
     workExperience: [],
     education: [],
+    projects: [],
     skills: [],
     certifications: [],
     languages: [],
@@ -282,10 +284,11 @@ const Index = () => {
               </div>
 
               <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-                <TabsList className="grid w-full grid-cols-5 h-auto">
+                <TabsList className="grid w-full grid-cols-6 h-auto">
                   <TabsTrigger value="contact" className="text-xs md:text-sm py-2">Contact</TabsTrigger>
                   <TabsTrigger value="summary" className="text-xs md:text-sm py-2">Summary</TabsTrigger>
                   <TabsTrigger value="experience" className="text-xs md:text-sm py-2">Work</TabsTrigger>
+                  <TabsTrigger value="projects" className="text-xs md:text-sm py-2">Projects</TabsTrigger>
                   <TabsTrigger value="education" className="text-xs md:text-sm py-2">Education</TabsTrigger>
                   <TabsTrigger value="skills" className="text-xs md:text-sm py-2">Skills</TabsTrigger>
                 </TabsList>
@@ -312,6 +315,13 @@ const Index = () => {
                     onChange={(workExperience) =>
                       setResumeData({ ...resumeData, workExperience })
                     }
+                  />
+                </TabsContent>
+
+                <TabsContent value="projects" className="space-y-4">
+                  <ProjectsForm
+                    data={resumeData.projects}
+                    onChange={(projects) => setResumeData({ ...resumeData, projects })}
                   />
                 </TabsContent>
 

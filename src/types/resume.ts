@@ -22,6 +22,14 @@ export interface WorkExperience {
   responsibilities: string[];
 }
 
+export interface Project {
+  id: string;
+  name: string;
+  description: string;
+  technologies?: string;
+  link?: string;
+}
+
 export interface Education {
   id: string;
   degree: string;
@@ -36,6 +44,7 @@ export interface ResumeData {
   summary: string;
   workExperience: WorkExperience[];
   education: Education[];
+  projects: Project[];
   skills: string[];
   certifications: string[];
   languages: string[];

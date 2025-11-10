@@ -93,6 +93,21 @@ export const ATSTemplate = ({ data }: ATSTemplateProps) => {
         </div>
       )}
 
+      {/* Projects */}
+      {data.projects.length > 0 && (
+        <div style={{ marginBottom: "20px" }}>
+          <div style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", textTransform: "uppercase" }}>
+            PROJECTS
+          </div>
+          {data.projects.map((project) => (
+            <div key={project.id} style={{ marginBottom: "8px" }}>
+              • <strong>{project.name}</strong> – {project.description}
+              {project.technologies && <span> ({project.technologies})</span>}
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* Education */}
       {data.education.length > 0 && (
         <div style={{ marginBottom: "20px" }}>

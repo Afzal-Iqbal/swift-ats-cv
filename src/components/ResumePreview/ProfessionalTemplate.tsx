@@ -64,6 +64,23 @@ export const ProfessionalTemplate = ({ data }: ProfessionalTemplateProps) => {
         </div>
       )}
 
+      {/* Projects */}
+      {data.projects.length > 0 && (
+        <div className="mb-4">
+          <h2 className="text-sm font-bold mb-2 uppercase" style={{ fontSize: "12pt" }}>
+            Projects
+          </h2>
+          <ul className="list-none pl-0 text-sm space-y-2">
+            {data.projects.map((project) => (
+              <li key={project.id} className="mb-1">
+                <strong>{project.name}</strong> – {project.description}
+                {project.technologies && <span className="text-muted-foreground"> ({project.technologies})</span>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {/* Education */}
       {data.education.length > 0 && (
         <div className="mb-4">

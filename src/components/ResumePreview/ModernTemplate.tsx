@@ -66,6 +66,23 @@ export const ModernTemplate = ({ data }: ModernTemplateProps) => {
         </div>
       )}
 
+      {/* Projects */}
+      {data.projects.length > 0 && (
+        <div className="mb-5">
+          <h2 className="text-base font-bold mb-2 pb-1 border-b-2" style={{ fontSize: "13pt", color: "#2563eb", borderColor: "#2563eb" }}>
+            PROJECTS
+          </h2>
+          <ul className="list-none pl-0 text-sm">
+            {data.projects.map((project) => (
+              <li key={project.id} className="mb-2 pl-4" style={{ textIndent: "-1em" }}>
+                <span style={{ color: "#2563eb" }}>▸</span> <strong>{project.name}</strong> – {project.description}
+                {project.technologies && <span className="text-sm" style={{ color: "#666" }}> ({project.technologies})</span>}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {/* Education */}
       {data.education.length > 0 && (
         <div className="mb-5">

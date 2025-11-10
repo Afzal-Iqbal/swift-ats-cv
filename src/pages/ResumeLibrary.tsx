@@ -41,6 +41,7 @@ const ResumeLibrary = () => {
         summary: "",
         workExperience: [],
         education: [],
+        projects: [],
         skills: [],
         certifications: [],
         languages: [],
