@@ -9,7 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { ContactInfoForm } from "@/components/ResumeBuilder/ContactInfoForm";
-import { SummaryForm } from "@/components/ResumeBuilder/SummaryForm";
+
 import { WorkExperienceForm } from "@/components/ResumeBuilder/WorkExperienceForm";
 import { EducationForm } from "@/components/ResumeBuilder/EducationForm";
 import { AdditionalForm } from "@/components/ResumeBuilder/AdditionalForm";
@@ -306,9 +306,8 @@ const Index = () => {
               </div>
 
               <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-                <TabsList className="grid w-full grid-cols-7 h-auto">
+                <TabsList className="grid w-full grid-cols-6 h-auto">
                   <TabsTrigger value="contact" className="text-xs md:text-sm py-2">Contact</TabsTrigger>
-                  <TabsTrigger value="summary" className="text-xs md:text-sm py-2">Summary</TabsTrigger>
                   <TabsTrigger value="experience" className="text-xs md:text-sm py-2">Work</TabsTrigger>
                   <TabsTrigger value="projects" className="text-xs md:text-sm py-2">Projects</TabsTrigger>
                   <TabsTrigger value="education" className="text-xs md:text-sm py-2">Education</TabsTrigger>
@@ -322,13 +321,6 @@ const Index = () => {
                     onChange={(contactInfo) =>
                       setResumeData({ ...resumeData, contactInfo })
                     }
-                  />
-                </TabsContent>
-
-                <TabsContent value="summary" className="space-y-4">
-                  <SummaryForm
-                    data={resumeData.summary}
-                    onChange={(summary) => setResumeData({ ...resumeData, summary })}
                   />
                 </TabsContent>
 

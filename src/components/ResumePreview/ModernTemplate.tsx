@@ -30,16 +30,6 @@ export const ModernTemplate = ({ data }: ModernTemplateProps) => {
         </div>
       </div>
 
-      {/* Professional Summary */}
-      {data.summary && (
-        <div className="mb-5">
-          <h2 className="text-base font-bold mb-2 pb-1 border-b-2" style={{ fontSize: "13pt", color: "#2563eb", borderColor: "#2563eb" }}>
-            PROFESSIONAL SUMMARY
-          </h2>
-          <p className="text-sm">{data.summary}</p>
-        </div>
-      )}
-
       {/* Education */}
       {data.education?.length > 0 && (
         <div className="mb-5">
@@ -68,12 +58,13 @@ export const ModernTemplate = ({ data }: ModernTemplateProps) => {
           </h2>
           {data.workExperience.map((exp) => (
             <div key={exp.id} className="mb-4">
-              <div className="mb-1">
+              <div className="flex justify-between items-baseline mb-1">
                 <h3 className="font-bold text-base" style={{ color: "#1e40af" }}>{exp.role} — {exp.company}</h3>
+                <span className="text-sm" style={{ color: "#666" }}>
+                  {formatDate(exp.startDate, false)} – {exp.current ? "Present" : formatDate(exp.endDate, false)}
+                </span>
               </div>
-              <div className="text-sm mb-2" style={{ color: "#666" }}>
-                {exp.location} | {formatDate(exp.startDate, false)} – {exp.current ? "Present" : formatDate(exp.endDate, false)}
-              </div>
+              <div className="text-sm mb-2" style={{ color: "#666" }}>{exp.location}</div>
               <ul className="list-none pl-0 text-sm">
                 {exp.responsibilities.filter(r => r.trim()).map((resp, idx) => (
                   <li key={idx} className="mb-1 pl-4" style={{ textIndent: "-1em" }}>

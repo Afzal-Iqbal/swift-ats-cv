@@ -57,18 +57,6 @@ export const ATSTemplate = ({ data }: ATSTemplateProps) => {
         ))}
       </div>
 
-      {/* Professional Summary */}
-      {data.summary && (
-        <div style={{ marginBottom: "20px" }}>
-          <div style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", textTransform: "uppercase" }}>
-            PROFESSIONAL SUMMARY
-          </div>
-          <div style={{ textAlign: "justify" }}>
-            {data.summary}
-          </div>
-        </div>
-      )}
-
       {/* Education */}
       {data.education?.length > 0 && (
         <div style={{ marginBottom: "20px" }}>
@@ -99,12 +87,15 @@ export const ATSTemplate = ({ data }: ATSTemplateProps) => {
           </div>
           {data.workExperience.map((exp) => (
             <div key={exp.id} style={{ marginBottom: "16px" }}>
-              <div style={{ fontWeight: "bold", marginBottom: "4px" }}>
-                {exp.role} — {exp.company}
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "4px" }}>
+                <div style={{ fontWeight: "bold" }}>
+                  {exp.role} — {exp.company}
+                </div>
+                <div style={{ fontSize: "10pt" }}>
+                  {formatDate(exp.startDate, false)} – {exp.current ? "Present" : formatDate(exp.endDate, false)}
+                </div>
               </div>
-              <div style={{ marginBottom: "8px" }}>
-                {exp.location} | {formatDate(exp.startDate, false)} – {exp.current ? "Present" : formatDate(exp.endDate, false)}
-              </div>
+              <div style={{ marginBottom: "8px" }}>{exp.location}</div>
               {exp.responsibilities.filter(r => r.trim()).map((resp, idx) => (
                 <div key={idx} style={{ marginBottom: "4px", paddingLeft: "20px" }}>
                   • {resp}
