@@ -41,7 +41,7 @@ export const ProfessionalTemplate = ({ data }: ProfessionalTemplateProps) => {
       )}
 
       {/* Work Experience */}
-      {data.workExperience.length > 0 && (
+      {data.workExperience?.length > 0 && (
         <div className="mb-4">
           <h2 className="text-sm font-bold mb-2 uppercase" style={{ fontSize: "12pt" }}>
             Work Experience
@@ -65,7 +65,7 @@ export const ProfessionalTemplate = ({ data }: ProfessionalTemplateProps) => {
       )}
 
       {/* Projects */}
-      {data.projects.length > 0 && (
+      {data.projects?.length > 0 && (
         <div className="mb-4">
           <h2 className="text-sm font-bold mb-2 uppercase" style={{ fontSize: "12pt" }}>
             Projects
@@ -82,7 +82,7 @@ export const ProfessionalTemplate = ({ data }: ProfessionalTemplateProps) => {
       )}
 
       {/* Education */}
-      {data.education.length > 0 && (
+      {data.education?.length > 0 && (
         <div className="mb-4">
           <h2 className="text-sm font-bold mb-2 uppercase" style={{ fontSize: "12pt" }}>
             Education
@@ -102,7 +102,7 @@ export const ProfessionalTemplate = ({ data }: ProfessionalTemplateProps) => {
       )}
 
       {/* Skills */}
-      {data.skills.length > 0 && (
+      {data.skills?.length > 0 && (
         <div className="mb-4">
           <h2 className="text-sm font-bold mb-2 uppercase" style={{ fontSize: "12pt" }}>
             Skills
@@ -112,7 +112,7 @@ export const ProfessionalTemplate = ({ data }: ProfessionalTemplateProps) => {
       )}
 
       {/* Certifications */}
-      {data.certifications.length > 0 && (
+      {data.certifications?.length > 0 && (
         <div className="mb-4">
           <h2 className="text-sm font-bold mb-2 uppercase" style={{ fontSize: "12pt" }}>
             Certifications
@@ -126,7 +126,7 @@ export const ProfessionalTemplate = ({ data }: ProfessionalTemplateProps) => {
       )}
 
       {/* Languages */}
-      {data.languages.length > 0 && (
+      {data.languages?.length > 0 && (
         <div>
           <h2 className="text-sm font-bold mb-2 uppercase" style={{ fontSize: "12pt" }}>
             Languages

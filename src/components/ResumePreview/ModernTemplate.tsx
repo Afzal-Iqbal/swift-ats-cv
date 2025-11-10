@@ -41,7 +41,7 @@ export const ModernTemplate = ({ data }: ModernTemplateProps) => {
       )}
 
       {/* Work Experience */}
-      {data.workExperience.length > 0 && (
+      {data.workExperience?.length > 0 && (
         <div className="mb-5">
           <h2 className="text-base font-bold mb-2 pb-1 border-b-2" style={{ fontSize: "13pt", color: "#2563eb", borderColor: "#2563eb" }}>
             WORK EXPERIENCE
@@ -67,7 +67,7 @@ export const ModernTemplate = ({ data }: ModernTemplateProps) => {
       )}
 
       {/* Projects */}
-      {data.projects.length > 0 && (
+      {data.projects?.length > 0 && (
         <div className="mb-5">
           <h2 className="text-base font-bold mb-2 pb-1 border-b-2" style={{ fontSize: "13pt", color: "#2563eb", borderColor: "#2563eb" }}>
             PROJECTS
@@ -84,7 +84,7 @@ export const ModernTemplate = ({ data }: ModernTemplateProps) => {
       )}
 
       {/* Education */}
-      {data.education.length > 0 && (
+      {data.education?.length > 0 && (
         <div className="mb-5">
           <h2 className="text-base font-bold mb-2 pb-1 border-b-2" style={{ fontSize: "13pt", color: "#2563eb", borderColor: "#2563eb" }}>
             EDUCATION
@@ -105,7 +105,7 @@ export const ModernTemplate = ({ data }: ModernTemplateProps) => {
 
       <div className="grid grid-cols-2 gap-5">
         {/* Skills */}
-        {data.skills.length > 0 && (
+        {data.skills?.length > 0 && (
           <div className="mb-4">
             <h2 className="text-base font-bold mb-2 pb-1 border-b-2" style={{ fontSize: "13pt", color: "#2563eb", borderColor: "#2563eb" }}>
               SKILLS
@@ -121,7 +121,7 @@ export const ModernTemplate = ({ data }: ModernTemplateProps) => {
         )}
 
         {/* Languages */}
-        {data.languages.length > 0 && (
+        {data.languages?.length > 0 && (
           <div className="mb-4">
             <h2 className="text-base font-bold mb-2 pb-1 border-b-2" style={{ fontSize: "13pt", color: "#2563eb", borderColor: "#2563eb" }}>
               LANGUAGES
@@ -132,7 +132,7 @@ export const ModernTemplate = ({ data }: ModernTemplateProps) => {
       </div>
 
       {/* Certifications */}
-      {data.certifications.length > 0 && (
+      {data.certifications?.length > 0 && (
         <div>
           <h2 className="text-base font-bold mb-2 pb-1 border-b-2" style={{ fontSize: "13pt", color: "#2563eb", borderColor: "#2563eb" }}>
             CERTIFICATIONS

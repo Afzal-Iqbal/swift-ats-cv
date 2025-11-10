@@ -70,7 +70,7 @@ export const ATSTemplate = ({ data }: ATSTemplateProps) => {
       )}
 
       {/* Work Experience */}
-      {data.workExperience.length > 0 && (
+      {data.workExperience?.length > 0 && (
         <div style={{ marginBottom: "20px" }}>
           <div style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", textTransform: "uppercase" }}>
             WORK EXPERIENCE
@@ -94,7 +94,7 @@ export const ATSTemplate = ({ data }: ATSTemplateProps) => {
       )}
 
       {/* Projects */}
-      {data.projects.length > 0 && (
+      {data.projects?.length > 0 && (
         <div style={{ marginBottom: "20px" }}>
           <div style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", textTransform: "uppercase" }}>
             PROJECTS
@@ -109,7 +109,7 @@ export const ATSTemplate = ({ data }: ATSTemplateProps) => {
       )}
 
       {/* Education */}
-      {data.education.length > 0 && (
+      {data.education?.length > 0 && (
         <div style={{ marginBottom: "20px" }}>
           <div style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", textTransform: "uppercase" }}>
             EDUCATION
@@ -131,7 +131,7 @@ export const ATSTemplate = ({ data }: ATSTemplateProps) => {
       )}
 
       {/* Skills */}
-      {data.skills.length > 0 && (
+      {data.skills?.length > 0 && (
         <div style={{ marginBottom: "20px" }}>
           <div style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", textTransform: "uppercase" }}>
             SKILLS
@@ -143,7 +143,7 @@ export const ATSTemplate = ({ data }: ATSTemplateProps) => {
       )}
 
       {/* Certifications */}
-      {data.certifications.length > 0 && data.certifications.some(c => c.trim()) && (
+      {data.certifications?.length > 0 && data.certifications.some(c => c.trim()) && (
         <div style={{ marginBottom: "20px" }}>
           <div style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", textTransform: "uppercase" }}>
             CERTIFICATIONS
@@ -157,7 +157,7 @@ export const ATSTemplate = ({ data }: ATSTemplateProps) => {
       )}
 
       {/* Languages */}
-      {data.languages.length > 0 && data.languages.some(l => l.trim()) && (
+      {data.languages?.length > 0 && data.languages.some(l => l.trim()) && (
         <div>
           <div style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", textTransform: "uppercase" }}>
             LANGUAGES
