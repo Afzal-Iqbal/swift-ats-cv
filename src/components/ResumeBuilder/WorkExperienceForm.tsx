@@ -20,6 +20,7 @@ export const WorkExperienceForm = ({ data, onChange }: WorkExperienceFormProps) 
         id: Date.now().toString(),
         company: "",
         role: "",
+        location: "",
         startDate: "",
         endDate: "",
         current: false,
@@ -98,6 +99,18 @@ export const WorkExperienceForm = ({ data, onChange }: WorkExperienceFormProps) 
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
+                    <Label>Location *</Label>
+                    <Input
+                      value={exp.location}
+                      onChange={(e) => updateExperience(exp.id, "location", e.target.value)}
+                      placeholder="San Francisco, CA"
+                      className="mt-1.5"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div>
                     <Label>Start Date *</Label>
                     <Input
                       type="month"
@@ -132,13 +145,16 @@ export const WorkExperienceForm = ({ data, onChange }: WorkExperienceFormProps) 
 
                 <div>
                   <Label>Key Responsibilities</Label>
+                  <p className="text-xs text-muted-foreground mt-1 mb-2">
+                    Start with action verbs (Developed, Led, Improved, Built, Integrated). Include metrics and specific technologies.
+                  </p>
                   <div className="space-y-2 mt-1.5">
                     {exp.responsibilities.map((resp, index) => (
                       <div key={index} className="flex gap-2">
                         <Textarea
                           value={resp}
                           onChange={(e) => updateResponsibility(exp.id, index, e.target.value)}
-                          placeholder="• Developed and maintained web applications..."
+                          placeholder="Developed and maintained web applications using React and Firebase, improving load times by 40%"
                           className="resize-none"
                           rows={2}
                         />

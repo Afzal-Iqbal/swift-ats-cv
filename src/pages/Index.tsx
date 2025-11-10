@@ -14,6 +14,7 @@ import { SkillsForm } from "@/components/ResumeBuilder/SkillsForm";
 import { ProfessionalTemplate } from "@/components/ResumePreview/ProfessionalTemplate";
 import { ModernTemplate } from "@/components/ResumePreview/ModernTemplate";
 import { ATSTemplate } from "@/components/ResumePreview/ATSTemplate";
+import { AIOptimizer } from "@/components/AIOptimizer";
 import { ResumeData, ResumeTemplate } from "@/types/resume";
 import { Download, FileText, LogOut, Moon, Sun } from "lucide-react";
 import { toast } from "sonner";
@@ -222,6 +223,15 @@ const Index = () => {
                 </TabsContent>
               </Tabs>
             </Card>
+
+            {/* AI Optimizer */}
+            <Card className="p-6 shadow-medium border-border">
+              <h3 className="text-lg font-semibold mb-3">AI-Powered Optimization</h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                Get intelligent suggestions to improve your resume's ATS compatibility and keyword optimization.
+              </p>
+              <AIOptimizer resumeData={resumeData} />
+            </Card>
           </div>
 
           {/* Preview Section */}
@@ -254,26 +264,53 @@ const Index = () => {
 
         {/* ATS Tips Section */}
         <Card className="mt-8 p-6 shadow-medium border-border animate-fade-in">
-          <h3 className="text-xl font-bold mb-4">ATS Optimization Tips</h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <h3 className="text-xl font-bold mb-4">📋 ATS Optimization Tips</h3>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
             <div className="p-4 bg-accent/10 rounded-lg border border-accent/20">
-              <h4 className="font-semibold mb-2 text-accent">✓ Use Standard Fonts</h4>
+              <h4 className="font-semibold mb-2 text-accent">✓ Standard Section Titles</h4>
               <p className="text-sm text-muted-foreground">
-                Arial, Calibri, and Times New Roman are ATS-friendly
+                Use "Work Experience" or "Professional Experience" - avoid creative alternatives
               </p>
             </div>
             <div className="p-4 bg-accent/10 rounded-lg border border-accent/20">
-              <h4 className="font-semibold mb-2 text-accent">✓ Include Keywords</h4>
+              <h4 className="font-semibold mb-2 text-accent">✓ No Tables or Columns</h4>
               <p className="text-sm text-muted-foreground">
-                Match job description terms in your experience and skills
+                Avoid tables, columns, or graphics - use single-column layout for ATS
               </p>
             </div>
             <div className="p-4 bg-accent/10 rounded-lg border border-accent/20">
-              <h4 className="font-semibold mb-2 text-accent">✓ Clean Formatting</h4>
+              <h4 className="font-semibold mb-2 text-accent">✓ Use Keywords</h4>
               <p className="text-sm text-muted-foreground">
-                Use the ATS-Optimized template for online applications
+                Include terms from job descriptions: React, Firebase, ATS, authentication
               </p>
             </div>
+            <div className="p-4 bg-accent/10 rounded-lg border border-accent/20">
+              <h4 className="font-semibold mb-2 text-accent">✓ Action Verbs</h4>
+              <p className="text-sm text-muted-foreground">
+                Start bullets with: Developed, Led, Improved, Built, Integrated
+              </p>
+            </div>
+            <div className="p-4 bg-accent/10 rounded-lg border border-accent/20">
+              <h4 className="font-semibold mb-2 text-accent">✓ Include Metrics</h4>
+              <p className="text-sm text-muted-foreground">
+                Add % improvements, user growth, performance gains whenever possible
+              </p>
+            </div>
+            <div className="p-4 bg-accent/10 rounded-lg border border-accent/20">
+              <h4 className="font-semibold mb-2 text-accent">✓ Bullet Point Structure</h4>
+              <p className="text-sm text-muted-foreground">
+                Action verb + responsibility/achievement + tools/metrics used
+              </p>
+            </div>
+          </div>
+          
+          <div className="p-4 bg-primary/5 border border-primary/20 rounded-lg">
+            <h4 className="font-semibold mb-2">💡 Example Bullet Point Format:</h4>
+            <ul className="text-sm space-y-1 text-muted-foreground">
+              <li>• <strong>Action verb + responsibility + tools/skills:</strong> "Developed responsive web applications using React and TypeScript"</li>
+              <li>• <strong>Action verb + achievement + measurable outcome:</strong> "Led migration to Firebase, reducing database costs by 35%"</li>
+              <li>• <strong>Action verb + what you learned/improved:</strong> "Improved code quality by implementing automated testing with Jest"</li>
+            </ul>
           </div>
         </Card>
       </main>

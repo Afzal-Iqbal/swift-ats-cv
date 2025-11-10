@@ -45,13 +45,12 @@ export const ModernTemplate = ({ data }: ModernTemplateProps) => {
           </h2>
           {data.workExperience.map((exp) => (
             <div key={exp.id} className="mb-4">
-              <div className="flex justify-between items-baseline mb-1">
-                <h3 className="font-bold text-base" style={{ color: "#1e40af" }}>{exp.role}</h3>
-                <span className="text-sm" style={{ color: "#666" }}>
-                  {formatDate(exp.startDate, false)} - {exp.current ? "Present" : formatDate(exp.endDate, false)}
-                </span>
+              <div className="mb-1">
+                <h3 className="font-bold text-base" style={{ color: "#1e40af" }}>{exp.role} — {exp.company}</h3>
               </div>
-              <div className="text-sm mb-2 font-semibold" style={{ color: "#666" }}>{exp.company}</div>
+              <div className="text-sm mb-2" style={{ color: "#666" }}>
+                {exp.location} | {formatDate(exp.startDate, false)} – {exp.current ? "Present" : formatDate(exp.endDate, false)}
+              </div>
               <ul className="list-none pl-0 text-sm">
                 {exp.responsibilities.filter(r => r.trim()).map((resp, idx) => (
                   <li key={idx} className="mb-1 pl-4" style={{ textIndent: "-1em" }}>

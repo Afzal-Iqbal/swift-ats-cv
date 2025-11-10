@@ -71,13 +71,10 @@ export const ATSTemplate = ({ data }: ATSTemplateProps) => {
           {data.workExperience.map((exp) => (
             <div key={exp.id} style={{ marginBottom: "16px" }}>
               <div style={{ fontWeight: "bold", marginBottom: "4px" }}>
-                {exp.role}
+                {exp.role} — {exp.company}
               </div>
-              <div style={{ marginBottom: "4px" }}>
-                {exp.company}
-              </div>
-              <div style={{ marginBottom: "8px", fontStyle: "italic" }}>
-                {formatDate(exp.startDate, false)} - {exp.current ? "Present" : formatDate(exp.endDate, false)}
+              <div style={{ marginBottom: "8px" }}>
+                {exp.location} | {formatDate(exp.startDate, false)} – {exp.current ? "Present" : formatDate(exp.endDate, false)}
               </div>
               {exp.responsibilities.filter(r => r.trim()).map((resp, idx) => (
                 <div key={idx} style={{ marginBottom: "4px", paddingLeft: "20px" }}>
