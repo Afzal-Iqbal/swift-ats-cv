@@ -1,8 +1,10 @@
+// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
+// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBErNoHXnuV7pbseYhjetFi3mzJiZ_ObEQ",
   authDomain: "atsresume-58fb9.firebaseapp.com",
