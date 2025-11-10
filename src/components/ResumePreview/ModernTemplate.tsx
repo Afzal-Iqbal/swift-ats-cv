@@ -64,7 +64,6 @@ export const ModernTemplate = ({ data }: ModernTemplateProps) => {
                   {formatDate(exp.startDate, false)} – {exp.current ? "Present" : formatDate(exp.endDate, false)}
                 </span>
               </div>
-              <div className="text-sm mb-2" style={{ color: "#666" }}>{exp.location}</div>
               <ul className="list-none pl-0 text-sm">
                 {exp.responsibilities.filter(r => r.trim()).map((resp, idx) => (
                   <li key={idx} className="mb-1 pl-4" style={{ textIndent: "-1em" }}>
@@ -112,7 +111,7 @@ export const ModernTemplate = ({ data }: ModernTemplateProps) => {
       )}
 
       {/* Additional Information */}
-      {(data.skills?.length > 0 || data.languages?.length > 0) && (
+      {(data.skills?.length > 0 || data.additionalItems?.length > 0) && (
         <div className="mb-5">
           <h2 className="text-base font-bold mb-3 pb-1 border-b-2" style={{ fontSize: "13pt", color: "#2563eb", borderColor: "#2563eb" }}>
             ADDITIONAL
@@ -127,11 +126,12 @@ export const ModernTemplate = ({ data }: ModernTemplateProps) => {
               </div>
             )}
 
-            {/* Languages */}
-            {data.languages?.length > 0 && (
+            {/* Additional Items */}
+            {data.additionalItems?.length > 0 && (
               <div>
-                <strong style={{ color: "#1e40af" }}>Languages:</strong>
-                <span> {data.languages.join(", ")}</span>
+                {data.additionalItems.filter(item => item.trim()).map((item, idx) => (
+                  <div key={idx} className="mb-1">• {item}</div>
+                ))}
               </div>
             )}
           </div>
