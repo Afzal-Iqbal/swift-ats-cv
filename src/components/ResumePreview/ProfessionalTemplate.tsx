@@ -101,37 +101,40 @@ export const ProfessionalTemplate = ({ data }: ProfessionalTemplateProps) => {
         </div>
       )}
 
-      {/* Skills */}
-      {data.skills?.length > 0 && (
+      {/* Additional Information */}
+      {(data.skills?.length > 0 || data.certifications?.length > 0 || data.languages?.length > 0) && (
         <div className="mb-4">
           <h2 className="text-sm font-bold mb-2 uppercase" style={{ fontSize: "12pt" }}>
-            Skills
+            Additional
           </h2>
-          <p className="text-sm">{data.skills.join(" • ")}</p>
-        </div>
-      )}
+          
+          {/* Technical Skills */}
+          {data.skills?.length > 0 && (
+            <div className="mb-3">
+              <h3 className="text-sm font-semibold mb-1">Technical Skills</h3>
+              <p className="text-sm">{data.skills.join(" • ")}</p>
+            </div>
+          )}
 
-      {/* Certifications */}
-      {data.certifications?.length > 0 && (
-        <div className="mb-4">
-          <h2 className="text-sm font-bold mb-2 uppercase" style={{ fontSize: "12pt" }}>
-            Certifications
-          </h2>
-          <ul className="list-none pl-0 text-sm">
-            {data.certifications.map((cert, idx) => (
-              <li key={idx} className="mb-1">• {cert}</li>
-            ))}
-          </ul>
-        </div>
-      )}
+          {/* Certifications */}
+          {data.certifications?.length > 0 && (
+            <div className="mb-3">
+              <h3 className="text-sm font-semibold mb-1">Certifications</h3>
+              <ul className="list-none pl-0 text-sm">
+                {data.certifications.map((cert, idx) => (
+                  <li key={idx} className="mb-1">• {cert}</li>
+                ))}
+              </ul>
+            </div>
+          )}
 
-      {/* Languages */}
-      {data.languages?.length > 0 && (
-        <div>
-          <h2 className="text-sm font-bold mb-2 uppercase" style={{ fontSize: "12pt" }}>
-            Languages
-          </h2>
-          <p className="text-sm">{data.languages.join(" • ")}</p>
+          {/* Languages */}
+          {data.languages?.length > 0 && (
+            <div>
+              <h3 className="text-sm font-semibold mb-1">Languages</h3>
+              <p className="text-sm">{data.languages.join(" • ")}</p>
+            </div>
+          )}
         </div>
       )}
     </div>

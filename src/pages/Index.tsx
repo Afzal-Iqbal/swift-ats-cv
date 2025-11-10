@@ -12,7 +12,7 @@ import { ContactInfoForm } from "@/components/ResumeBuilder/ContactInfoForm";
 import { SummaryForm } from "@/components/ResumeBuilder/SummaryForm";
 import { WorkExperienceForm } from "@/components/ResumeBuilder/WorkExperienceForm";
 import { EducationForm } from "@/components/ResumeBuilder/EducationForm";
-import { SkillsForm } from "@/components/ResumeBuilder/SkillsForm";
+import { AdditionalForm } from "@/components/ResumeBuilder/AdditionalForm";
 import { ProjectsForm } from "@/components/ResumeBuilder/ProjectsForm";
 import { ProfessionalTemplate } from "@/components/ResumePreview/ProfessionalTemplate";
 import { ModernTemplate } from "@/components/ResumePreview/ModernTemplate";
@@ -290,7 +290,7 @@ const Index = () => {
                   <TabsTrigger value="experience" className="text-xs md:text-sm py-2">Work</TabsTrigger>
                   <TabsTrigger value="projects" className="text-xs md:text-sm py-2">Projects</TabsTrigger>
                   <TabsTrigger value="education" className="text-xs md:text-sm py-2">Education</TabsTrigger>
-                  <TabsTrigger value="skills" className="text-xs md:text-sm py-2">Skills</TabsTrigger>
+                  <TabsTrigger value="additional" className="text-xs md:text-sm py-2">Additional</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="contact" className="space-y-4">
@@ -332,8 +332,8 @@ const Index = () => {
                   />
                 </TabsContent>
 
-                <TabsContent value="skills" className="space-y-4">
-                  <SkillsForm
+                <TabsContent value="additional" className="space-y-4">
+                  <AdditionalForm
                     skills={resumeData.skills}
                     certifications={resumeData.certifications}
                     languages={resumeData.languages}

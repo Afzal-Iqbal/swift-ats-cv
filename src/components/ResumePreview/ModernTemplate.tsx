@@ -103,47 +103,50 @@ export const ModernTemplate = ({ data }: ModernTemplateProps) => {
         </div>
       )}
 
-      <div className="grid grid-cols-2 gap-5">
-        {/* Skills */}
-        {data.skills?.length > 0 && (
-          <div className="mb-4">
-            <h2 className="text-base font-bold mb-2 pb-1 border-b-2" style={{ fontSize: "13pt", color: "#2563eb", borderColor: "#2563eb" }}>
-              SKILLS
-            </h2>
-            <div className="text-sm flex flex-wrap gap-2">
-              {data.skills.map((skill, idx) => (
-                <span key={idx} className="inline-block px-2 py-1" style={{ backgroundColor: "#eff6ff", color: "#1e40af", borderRadius: "4px" }}>
-                  {skill}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Languages */}
-        {data.languages?.length > 0 && (
-          <div className="mb-4">
-            <h2 className="text-base font-bold mb-2 pb-1 border-b-2" style={{ fontSize: "13pt", color: "#2563eb", borderColor: "#2563eb" }}>
-              LANGUAGES
-            </h2>
-            <p className="text-sm">{data.languages.join(" • ")}</p>
-          </div>
-        )}
-      </div>
-
-      {/* Certifications */}
-      {data.certifications?.length > 0 && (
-        <div>
-          <h2 className="text-base font-bold mb-2 pb-1 border-b-2" style={{ fontSize: "13pt", color: "#2563eb", borderColor: "#2563eb" }}>
-            CERTIFICATIONS
+      {/* Additional Information */}
+      {(data.skills?.length > 0 || data.certifications?.length > 0 || data.languages?.length > 0) && (
+        <div className="mb-5">
+          <h2 className="text-base font-bold mb-3 pb-1 border-b-2" style={{ fontSize: "13pt", color: "#2563eb", borderColor: "#2563eb" }}>
+            ADDITIONAL
           </h2>
-          <ul className="list-none pl-0 text-sm">
-            {data.certifications.map((cert, idx) => (
-              <li key={idx} className="mb-1 pl-4" style={{ textIndent: "-1em" }}>
-                <span style={{ color: "#2563eb" }}>▸</span> {cert}
-              </li>
-            ))}
-          </ul>
+          
+          <div className="space-y-4">
+            {/* Technical Skills */}
+            {data.skills?.length > 0 && (
+              <div>
+                <h3 className="text-sm font-semibold mb-2" style={{ color: "#1e40af" }}>Technical Skills</h3>
+                <div className="flex flex-wrap gap-2">
+                  {data.skills.map((skill, idx) => (
+                    <span key={idx} className="inline-block px-2 py-1 text-sm" style={{ backgroundColor: "#eff6ff", color: "#1e40af", borderRadius: "4px" }}>
+                      {skill}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Certifications */}
+            {data.certifications?.length > 0 && (
+              <div>
+                <h3 className="text-sm font-semibold mb-2" style={{ color: "#1e40af" }}>Certifications</h3>
+                <ul className="list-none pl-0 text-sm">
+                  {data.certifications.map((cert, idx) => (
+                    <li key={idx} className="mb-1 pl-4" style={{ textIndent: "-1em" }}>
+                      <span style={{ color: "#2563eb" }}>▸</span> {cert}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {/* Languages */}
+            {data.languages?.length > 0 && (
+              <div>
+                <h3 className="text-sm font-semibold mb-2" style={{ color: "#1e40af" }}>Languages</h3>
+                <p className="text-sm">{data.languages.join(" • ")}</p>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </div>

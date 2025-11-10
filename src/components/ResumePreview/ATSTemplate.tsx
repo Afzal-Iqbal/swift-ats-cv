@@ -130,41 +130,50 @@ export const ATSTemplate = ({ data }: ATSTemplateProps) => {
         </div>
       )}
 
-      {/* Skills */}
-      {data.skills?.length > 0 && (
+      {/* Additional Information */}
+      {(data.skills?.length > 0 || data.certifications?.length > 0 || data.languages?.length > 0) && (
         <div style={{ marginBottom: "20px" }}>
-          <div style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", textTransform: "uppercase" }}>
-            SKILLS
+          <div style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "12px", textTransform: "uppercase" }}>
+            ADDITIONAL
           </div>
-          <div>
-            {data.skills.filter(s => s.trim()).join(" • ")}
-          </div>
-        </div>
-      )}
-
-      {/* Certifications */}
-      {data.certifications?.length > 0 && data.certifications.some(c => c.trim()) && (
-        <div style={{ marginBottom: "20px" }}>
-          <div style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", textTransform: "uppercase" }}>
-            CERTIFICATIONS
-          </div>
-          {data.certifications.filter(c => c.trim()).map((cert, idx) => (
-            <div key={idx} style={{ marginBottom: "4px" }}>
-              {cert}
+          
+          {/* Technical Skills */}
+          {data.skills?.length > 0 && data.skills.some(s => s.trim()) && (
+            <div style={{ marginBottom: "12px" }}>
+              <div style={{ fontWeight: "bold", marginBottom: "6px" }}>
+                Technical Skills
+              </div>
+              <div>
+                {data.skills.filter(s => s.trim()).join(" • ")}
+              </div>
             </div>
-          ))}
-        </div>
-      )}
+          )}
 
-      {/* Languages */}
-      {data.languages?.length > 0 && data.languages.some(l => l.trim()) && (
-        <div>
-          <div style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", textTransform: "uppercase" }}>
-            LANGUAGES
-          </div>
-          <div>
-            {data.languages.filter(l => l.trim()).join(" • ")}
-          </div>
+          {/* Certifications */}
+          {data.certifications?.length > 0 && data.certifications.some(c => c.trim()) && (
+            <div style={{ marginBottom: "12px" }}>
+              <div style={{ fontWeight: "bold", marginBottom: "6px" }}>
+                Certifications
+              </div>
+              {data.certifications.filter(c => c.trim()).map((cert, idx) => (
+                <div key={idx} style={{ marginBottom: "4px" }}>
+                  • {cert}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Languages */}
+          {data.languages?.length > 0 && data.languages.some(l => l.trim()) && (
+            <div>
+              <div style={{ fontWeight: "bold", marginBottom: "6px" }}>
+                Languages
+              </div>
+              <div>
+                {data.languages.filter(l => l.trim()).join(" • ")}
+              </div>
+            </div>
+          )}
         </div>
       )}
     </div>
