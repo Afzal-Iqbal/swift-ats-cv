@@ -35,4 +35,4 @@ export interface ResumeData {
   languages: string[];
 }
 
-export type ResumeTemplate = 'professional' | 'modern';
+export type ResumeTemplate = 'professional' | 'modern' | 'ats';

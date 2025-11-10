@@ -1,4 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useAuth } from "@/contexts/AuthContext";
+import { useTheme } from "@/contexts/ThemeContext";
+import { useFirestore } from "@/hooks/useFirestore";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -10,14 +13,20 @@ import { EducationForm } from "@/components/ResumeBuilder/EducationForm";
 import { SkillsForm } from "@/components/ResumeBuilder/SkillsForm";
 import { ProfessionalTemplate } from "@/components/ResumePreview/ProfessionalTemplate";
 import { ModernTemplate } from "@/components/ResumePreview/ModernTemplate";
+import { ATSTemplate } from "@/components/ResumePreview/ATSTemplate";
 import { ResumeData, ResumeTemplate } from "@/types/resume";
-import { Download, FileText } from "lucide-react";
+import { Download, FileText, LogOut, Moon, Sun } from "lucide-react";
 import { toast } from "sonner";
 import html2pdf from "html2pdf.js";
 
 const Index = () => {
+  const { user, logout } = useAuth();
+  const { theme, toggleTheme } = useTheme();
+  const { resumes, createResume, updateResume } = useFirestore();
+  
   const [activeTab, setActiveTab] = useState("contact");
   const [template, setTemplate] = useState<ResumeTemplate>("professional");
+  const [currentResumeId, setCurrentResumeId] = useState<string | null>(null);
   const [resumeData, setResumeData] = useState<ResumeData>({
     contactInfo: {
       fullName: "",
@@ -34,11 +43,37 @@ const Index = () => {
     languages: [],
   });
 
+  // Load first resume or create new one
+  useEffect(() => {
+    if (resumes.length > 0 && !currentResumeId) {
+      const firstResume = resumes[0];
+      setCurrentResumeId(firstResume.id);
+      setResumeData(firstResume.data);
+    } else if (resumes.length === 0 && user && !currentResumeId) {
+      // Create initial resume
+      createResume("My Resume", resumeData).then((id) => {
+        setCurrentResumeId(id);
+      });
+    }
+  }, [resumes, user, currentResumeId]);
+
+  // Auto-save to Firestore with debouncing
+  useEffect(() => {
+    if (!currentResumeId) return;
+
+    const timeoutId = setTimeout(() => {
+      updateResume(currentResumeId, resumeData);
+    }, 1000);
+
+    return () => clearTimeout(timeoutId);
+  }, [resumeData, currentResumeId]);
+
   const handleDownloadPDF = () => {
     const element = document.getElementById('resume-preview');
+    const templateName = template === 'ats' ? 'ATS' : template === 'modern' ? 'Modern' : 'Professional';
     const fileName = resumeData.contactInfo.fullName 
-      ? `${resumeData.contactInfo.fullName.replace(/\s+/g, '_')}_Resume.pdf`
-      : 'Resume.pdf';
+      ? `${resumeData.contactInfo.fullName.replace(/\s+/g, '_')}_Resume_${templateName}.pdf`
+      : `Resume_${templateName}.pdf`;
     
     const opt = {
       margin: 0,
@@ -58,23 +93,52 @@ const Index = () => {
     );
   };
 
+  const handleLogout = async () => {
+    try {
+      await logout();
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-subtle">
       {/* Header */}
-      <header className="bg-gradient-hero text-white shadow-medium sticky top-0 z-50">
+      <header className="bg-gradient-hero text-primary-foreground shadow-medium sticky top-0 z-50">
         <div className="container mx-auto px-4 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <FileText className="h-8 w-8" />
-              <h1 className="text-2xl md:text-3xl font-bold">ATS CV Resume Builder</h1>
+              <div>
+                <h1 className="text-2xl md:text-3xl font-bold">CV Resume Builder</h1>
+                <p className="text-sm opacity-90">{user?.email}</p>
+              </div>
             </div>
-            <Button
-              onClick={handleDownloadPDF}
-              className="bg-white text-primary hover:bg-white/90 shadow-soft"
-            >
-              <Download className="mr-2 h-4 w-4" />
-              Download PDF
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={toggleTheme}
+                className="text-primary-foreground hover:bg-primary-foreground/10"
+              >
+                {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+              </Button>
+              <Button
+                onClick={handleDownloadPDF}
+                className="bg-card text-foreground hover:bg-card/90 shadow-soft"
+              >
+                <Download className="mr-2 h-4 w-4" />
+                Download PDF
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={handleLogout}
+                className="text-primary-foreground hover:bg-primary-foreground/10"
+              >
+                <LogOut className="mr-2 h-4 w-4" />
+                Logout
+              </Button>
+            </div>
           </div>
         </div>
       </header>
@@ -95,6 +159,7 @@ const Index = () => {
                     <SelectContent>
                       <SelectItem value="professional">Professional</SelectItem>
                       <SelectItem value="modern">Modern</SelectItem>
+                      <SelectItem value="ats">ATS-Optimized</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -165,15 +230,21 @@ const Index = () => {
               <div className="bg-muted px-6 py-4 border-b border-border">
                 <h2 className="text-xl font-bold">Live Preview</h2>
                 <p className="text-sm text-muted-foreground">
-                  Your resume updates in real-time
+                  {template === 'ats' 
+                    ? 'ATS-Optimized: Single-column, no styling' 
+                    : template === 'modern'
+                    ? 'Modern: Colorful & professional'
+                    : 'Professional: Clean & classic'}
                 </p>
               </div>
               <div className="p-6 bg-muted/30 overflow-y-auto" style={{ maxHeight: "calc(100vh - 200px)" }}>
                 <div className="bg-white shadow-lg" id="resume-preview">
                   {template === "professional" ? (
                     <ProfessionalTemplate data={resumeData} />
-                  ) : (
+                  ) : template === "modern" ? (
                     <ModernTemplate data={resumeData} />
+                  ) : (
+                    <ATSTemplate data={resumeData} />
                   )}
                 </div>
               </div>
@@ -200,7 +271,7 @@ const Index = () => {
             <div className="p-4 bg-accent/10 rounded-lg border border-accent/20">
               <h4 className="font-semibold mb-2 text-accent">✓ Clean Formatting</h4>
               <p className="text-sm text-muted-foreground">
-                No tables, columns, or graphics - just clean text
+                Use the ATS-Optimized template for online applications
               </p>
             </div>
           </div>
@@ -211,7 +282,7 @@ const Index = () => {
       <footer className="bg-card border-t border-border mt-12 py-6">
         <div className="container mx-auto px-4 text-center text-muted-foreground">
           <p className="text-sm">
-            Built for ATS compliance • Export to PDF • Multiple templates
+            Built for ATS compliance • Auto-save to Firebase • 3 Professional templates
           </p>
         </div>
       </footer>
