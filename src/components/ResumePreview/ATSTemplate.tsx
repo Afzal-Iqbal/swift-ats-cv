@@ -95,7 +95,6 @@ export const ATSTemplate = ({ data }: ATSTemplateProps) => {
                   {formatDate(exp.startDate, false)} – {exp.current ? "Present" : formatDate(exp.endDate, false)}
                 </div>
               </div>
-              <div style={{ marginBottom: "8px" }}>{exp.location}</div>
               {exp.responsibilities.filter(r => r.trim()).map((resp, idx) => (
                 <div key={idx} style={{ marginBottom: "4px", paddingLeft: "20px" }}>
                   • {resp}
@@ -145,7 +144,7 @@ export const ATSTemplate = ({ data }: ATSTemplateProps) => {
       )}
 
       {/* Additional Information */}
-      {(data.skills?.length > 0 || data.languages?.length > 0) && (
+      {(data.skills?.length > 0 || data.additionalItems?.length > 0) && (
         <div>
           <div style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", textTransform: "uppercase" }}>
             ADDITIONAL
@@ -159,11 +158,14 @@ export const ATSTemplate = ({ data }: ATSTemplateProps) => {
             </div>
           )}
 
-          {/* Languages */}
-          {data.languages?.length > 0 && data.languages.some(l => l.trim()) && (
+          {/* Additional Items */}
+          {data.additionalItems?.length > 0 && data.additionalItems.some(item => item.trim()) && (
             <div>
-              <strong>Languages: </strong>
-              {data.languages.filter(l => l.trim()).join(", ")}
+              {data.additionalItems.filter(item => item.trim()).map((item, idx) => (
+                <div key={idx} style={{ marginBottom: "4px" }}>
+                  • {item}
+                </div>
+              ))}
             </div>
           )}
         </div>
