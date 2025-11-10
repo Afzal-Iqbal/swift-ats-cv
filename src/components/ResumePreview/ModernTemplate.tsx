@@ -40,6 +40,26 @@ export const ModernTemplate = ({ data }: ModernTemplateProps) => {
         </div>
       )}
 
+      {/* Education */}
+      {data.education?.length > 0 && (
+        <div className="mb-5">
+          <h2 className="text-base font-bold mb-2 pb-1 border-b-2" style={{ fontSize: "13pt", color: "#2563eb", borderColor: "#2563eb" }}>
+            EDUCATION
+          </h2>
+          {data.education.map((edu) => (
+            <div key={edu.id} className="mb-3">
+              <div className="flex justify-between items-baseline">
+                <h3 className="font-bold" style={{ color: "#1e40af" }}>{edu.degree}</h3>
+                <span className="text-sm" style={{ color: "#666" }}>
+                  {formatDate(edu.startDate, false)} - {edu.current ? "Present" : formatDate(edu.endDate, false)}
+                </span>
+              </div>
+              <div className="text-sm font-semibold" style={{ color: "#666" }}>{edu.institution}</div>
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* Work Experience */}
       {data.workExperience?.length > 0 && (
         <div className="mb-5">
@@ -83,67 +103,44 @@ export const ModernTemplate = ({ data }: ModernTemplateProps) => {
         </div>
       )}
 
-      {/* Education */}
-      {data.education?.length > 0 && (
+      {/* Professional Certifications */}
+      {data.certifications?.length > 0 && (
         <div className="mb-5">
-          <h2 className="text-base font-bold mb-2 pb-1 border-b-2" style={{ fontSize: "13pt", color: "#2563eb", borderColor: "#2563eb" }}>
-            EDUCATION
+          <h2 className="text-base font-bold mb-3 pb-1 border-b-2" style={{ fontSize: "13pt", color: "#2563eb", borderColor: "#2563eb" }}>
+            PROFESSIONAL CERTIFICATIONS
           </h2>
-          {data.education.map((edu) => (
-            <div key={edu.id} className="mb-3">
-              <div className="flex justify-between items-baseline">
-                <h3 className="font-bold" style={{ color: "#1e40af" }}>{edu.degree}</h3>
-                <span className="text-sm" style={{ color: "#666" }}>
-                  {formatDate(edu.startDate, false)} - {edu.current ? "Present" : formatDate(edu.endDate, false)}
-                </span>
+          <div className="grid grid-cols-2 gap-x-6 gap-y-3 text-sm">
+            {data.certifications.map((cert) => (
+              <div key={cert.id}>
+                <div className="font-bold" style={{ color: "#1e40af" }}>{cert.name}</div>
+                {cert.provider && <div style={{ color: "#666" }}>({cert.provider})</div>}
               </div>
-              <div className="text-sm font-semibold" style={{ color: "#666" }}>{edu.institution}</div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       )}
 
       {/* Additional Information */}
-      {(data.skills?.length > 0 || data.certifications?.length > 0 || data.languages?.length > 0) && (
+      {(data.skills?.length > 0 || data.languages?.length > 0) && (
         <div className="mb-5">
           <h2 className="text-base font-bold mb-3 pb-1 border-b-2" style={{ fontSize: "13pt", color: "#2563eb", borderColor: "#2563eb" }}>
             ADDITIONAL
           </h2>
           
-          <div className="space-y-4">
+          <div className="text-sm">
             {/* Technical Skills */}
             {data.skills?.length > 0 && (
-              <div>
-                <h3 className="text-sm font-semibold mb-2" style={{ color: "#1e40af" }}>Technical Skills</h3>
-                <div className="flex flex-wrap gap-2">
-                  {data.skills.map((skill, idx) => (
-                    <span key={idx} className="inline-block px-2 py-1 text-sm" style={{ backgroundColor: "#eff6ff", color: "#1e40af", borderRadius: "4px" }}>
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Certifications */}
-            {data.certifications?.length > 0 && (
-              <div>
-                <h3 className="text-sm font-semibold mb-2" style={{ color: "#1e40af" }}>Certifications</h3>
-                <ul className="list-none pl-0 text-sm">
-                  {data.certifications.map((cert, idx) => (
-                    <li key={idx} className="mb-1 pl-4" style={{ textIndent: "-1em" }}>
-                      <span style={{ color: "#2563eb" }}>▸</span> {cert}
-                    </li>
-                  ))}
-                </ul>
+              <div className="mb-2">
+                <strong style={{ color: "#1e40af" }}>Technical Skills:</strong>
+                <span> {data.skills.join(", ")}</span>
               </div>
             )}
 
             {/* Languages */}
             {data.languages?.length > 0 && (
               <div>
-                <h3 className="text-sm font-semibold mb-2" style={{ color: "#1e40af" }}>Languages</h3>
-                <p className="text-sm">{data.languages.join(" • ")}</p>
+                <strong style={{ color: "#1e40af" }}>Languages:</strong>
+                <span> {data.languages.join(", ")}</span>
               </div>
             )}
           </div>

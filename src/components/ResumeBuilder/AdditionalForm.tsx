@@ -7,19 +7,15 @@ import { Separator } from "@/components/ui/separator";
 
 interface AdditionalFormProps {
   skills: string[];
-  certifications: string[];
   languages: string[];
   onSkillsChange: (skills: string[]) => void;
-  onCertificationsChange: (certifications: string[]) => void;
   onLanguagesChange: (languages: string[]) => void;
 }
 
 export const AdditionalForm = ({
   skills,
-  certifications,
   languages,
   onSkillsChange,
-  onCertificationsChange,
   onLanguagesChange,
 }: AdditionalFormProps) => {
   const addSkill = () => {
@@ -34,20 +30,6 @@ export const AdditionalForm = ({
 
   const removeSkill = (index: number) => {
     onSkillsChange(skills.filter((_, i) => i !== index));
-  };
-
-  const addCertification = () => {
-    onCertificationsChange([...certifications, ""]);
-  };
-
-  const updateCertification = (index: number, value: string) => {
-    const newCertifications = [...certifications];
-    newCertifications[index] = value;
-    onCertificationsChange(newCertifications);
-  };
-
-  const removeCertification = (index: number) => {
-    onCertificationsChange(certifications.filter((_, i) => i !== index));
   };
 
   const addLanguage = () => {
@@ -102,44 +84,6 @@ export const AdditionalForm = ({
             >
               <Plus className="h-4 w-4 mr-2" />
               Add Technical Skill
-            </Button>
-          </div>
-        </div>
-
-        <Separator />
-
-        {/* Certifications Section */}
-        <div>
-          <Label className="text-base font-semibold">Certifications</Label>
-          <p className="text-sm text-muted-foreground mt-1 mb-3">
-            Add professional certifications or credentials
-          </p>
-          <div className="space-y-2">
-            {certifications.map((cert, index) => (
-              <div key={index} className="flex gap-2">
-                <Input
-                  value={cert}
-                  onChange={(e) => updateCertification(index, e.target.value)}
-                  placeholder="e.g., AWS Certified Solutions Architect"
-                />
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon"
-                  onClick={() => removeCertification(index)}
-                >
-                  <X className="h-4 w-4" />
-                </Button>
-              </div>
-            ))}
-            <Button
-              type="button"
-              variant="outline"
-              onClick={addCertification}
-              className="w-full"
-            >
-              <Plus className="h-4 w-4 mr-2" />
-              Add Certification
             </Button>
           </div>
         </div>

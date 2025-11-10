@@ -69,6 +69,28 @@ export const ATSTemplate = ({ data }: ATSTemplateProps) => {
         </div>
       )}
 
+      {/* Education */}
+      {data.education?.length > 0 && (
+        <div style={{ marginBottom: "20px" }}>
+          <div style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", textTransform: "uppercase" }}>
+            EDUCATION
+          </div>
+          {data.education.map((edu) => (
+            <div key={edu.id} style={{ marginBottom: "12px" }}>
+              <div style={{ fontWeight: "bold", marginBottom: "4px" }}>
+                {edu.degree}
+              </div>
+              <div style={{ marginBottom: "4px" }}>
+                {edu.institution}
+              </div>
+              <div style={{ fontStyle: "italic" }}>
+                {formatDate(edu.startDate, false)} - {edu.current ? "Present" : formatDate(edu.endDate, false)}
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* Work Experience */}
       {data.workExperience?.length > 0 && (
         <div style={{ marginBottom: "20px" }}>
@@ -108,70 +130,49 @@ export const ATSTemplate = ({ data }: ATSTemplateProps) => {
         </div>
       )}
 
-      {/* Education */}
-      {data.education?.length > 0 && (
+      {/* Professional Certifications */}
+      {data.certifications?.length > 0 && (
         <div style={{ marginBottom: "20px" }}>
           <div style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", textTransform: "uppercase" }}>
-            EDUCATION
+            PROFESSIONAL CERTIFICATIONS
           </div>
-          {data.education.map((edu) => (
-            <div key={edu.id} style={{ marginBottom: "12px" }}>
-              <div style={{ fontWeight: "bold", marginBottom: "4px" }}>
-                {edu.degree}
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px 16px" }}>
+            {data.certifications.map((cert) => (
+              <div key={cert.id} style={{ marginBottom: "4px" }}>
+                <div style={{ fontWeight: "bold" }}>
+                  {cert.name}
+                </div>
+                {cert.provider && (
+                  <div style={{ fontSize: "10pt" }}>
+                    ({cert.provider})
+                  </div>
+                )}
               </div>
-              <div style={{ marginBottom: "4px" }}>
-                {edu.institution}
-              </div>
-              <div style={{ fontStyle: "italic" }}>
-                {formatDate(edu.startDate, false)} - {edu.current ? "Present" : formatDate(edu.endDate, false)}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       )}
 
       {/* Additional Information */}
-      {(data.skills?.length > 0 || data.certifications?.length > 0 || data.languages?.length > 0) && (
-        <div style={{ marginBottom: "20px" }}>
-          <div style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "12px", textTransform: "uppercase" }}>
+      {(data.skills?.length > 0 || data.languages?.length > 0) && (
+        <div>
+          <div style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", textTransform: "uppercase" }}>
             ADDITIONAL
           </div>
           
           {/* Technical Skills */}
           {data.skills?.length > 0 && data.skills.some(s => s.trim()) && (
-            <div style={{ marginBottom: "12px" }}>
-              <div style={{ fontWeight: "bold", marginBottom: "6px" }}>
-                Technical Skills
-              </div>
-              <div>
-                {data.skills.filter(s => s.trim()).join(" • ")}
-              </div>
-            </div>
-          )}
-
-          {/* Certifications */}
-          {data.certifications?.length > 0 && data.certifications.some(c => c.trim()) && (
-            <div style={{ marginBottom: "12px" }}>
-              <div style={{ fontWeight: "bold", marginBottom: "6px" }}>
-                Certifications
-              </div>
-              {data.certifications.filter(c => c.trim()).map((cert, idx) => (
-                <div key={idx} style={{ marginBottom: "4px" }}>
-                  • {cert}
-                </div>
-              ))}
+            <div style={{ marginBottom: "8px" }}>
+              <strong>Technical Skills: </strong>
+              {data.skills.filter(s => s.trim()).join(", ")}
             </div>
           )}
 
           {/* Languages */}
           {data.languages?.length > 0 && data.languages.some(l => l.trim()) && (
             <div>
-              <div style={{ fontWeight: "bold", marginBottom: "6px" }}>
-                Languages
-              </div>
-              <div>
-                {data.languages.filter(l => l.trim()).join(" • ")}
-              </div>
+              <strong>Languages: </strong>
+              {data.languages.filter(l => l.trim()).join(", ")}
             </div>
           )}
         </div>

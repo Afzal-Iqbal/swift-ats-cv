@@ -39,6 +39,12 @@ export interface Education {
   current: boolean;
 }
 
+export interface Certification {
+  id: string;
+  name: string;
+  provider: string;
+}
+
 export interface ResumeData {
   contactInfo: ContactInfo;
   summary: string;
@@ -46,7 +52,7 @@ export interface ResumeData {
   education: Education[];
   projects: Project[];
   skills: string[];
-  certifications: string[];
+  certifications: Certification[];
   languages: string[];
 }
 

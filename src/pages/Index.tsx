@@ -13,6 +13,7 @@ import { SummaryForm } from "@/components/ResumeBuilder/SummaryForm";
 import { WorkExperienceForm } from "@/components/ResumeBuilder/WorkExperienceForm";
 import { EducationForm } from "@/components/ResumeBuilder/EducationForm";
 import { AdditionalForm } from "@/components/ResumeBuilder/AdditionalForm";
+import { CertificationsForm } from "@/components/ResumeBuilder/CertificationsForm";
 import { ProjectsForm } from "@/components/ResumeBuilder/ProjectsForm";
 import { ProfessionalTemplate } from "@/components/ResumePreview/ProfessionalTemplate";
 import { ModernTemplate } from "@/components/ResumePreview/ModernTemplate";
@@ -60,8 +61,19 @@ const Index = () => {
       const resume = resumes.find(r => r.id === resumeIdFromUrl);
       if (resume) {
         setCurrentResumeId(resume.id);
+        
+        // Migrate old certifications format (string[]) to new format (Certification[])
+        const migratedCertifications = Array.isArray(resume.data.certifications)
+          ? resume.data.certifications.map((cert: any) => 
+              typeof cert === 'string' 
+                ? { id: Date.now().toString() + Math.random(), name: cert, provider: '' }
+                : cert
+            )
+          : [];
+        
         const updatedData = {
           ...resume.data,
+          certifications: migratedCertifications,
           workExperience: resume.data.workExperience.map(exp => ({
             ...exp,
             location: exp.location || ""
@@ -76,8 +88,18 @@ const Index = () => {
       const firstResume = resumes[0];
       setCurrentResumeId(firstResume.id);
       
+      // Migrate old certifications format
+      const migratedCertifications = Array.isArray(firstResume.data.certifications)
+        ? firstResume.data.certifications.map((cert: any) => 
+            typeof cert === 'string' 
+              ? { id: Date.now().toString() + Math.random(), name: cert, provider: '' }
+              : cert
+          )
+        : [];
+      
       const updatedData = {
         ...firstResume.data,
+        certifications: migratedCertifications,
         workExperience: firstResume.data.workExperience.map(exp => ({
           ...exp,
           location: exp.location || ""
@@ -284,13 +306,14 @@ const Index = () => {
               </div>
 
               <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-                <TabsList className="grid w-full grid-cols-6 h-auto">
+                <TabsList className="grid w-full grid-cols-7 h-auto">
                   <TabsTrigger value="contact" className="text-xs md:text-sm py-2">Contact</TabsTrigger>
                   <TabsTrigger value="summary" className="text-xs md:text-sm py-2">Summary</TabsTrigger>
                   <TabsTrigger value="experience" className="text-xs md:text-sm py-2">Work</TabsTrigger>
                   <TabsTrigger value="projects" className="text-xs md:text-sm py-2">Projects</TabsTrigger>
                   <TabsTrigger value="education" className="text-xs md:text-sm py-2">Education</TabsTrigger>
-                  <TabsTrigger value="additional" className="text-xs md:text-sm py-2">Additional</TabsTrigger>
+                  <TabsTrigger value="certifications" className="text-xs md:text-sm py-2">Certs</TabsTrigger>
+                  <TabsTrigger value="additional" className="text-xs md:text-sm py-2">More</TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="contact" className="space-y-4">
@@ -332,15 +355,18 @@ const Index = () => {
                   />
                 </TabsContent>
 
+                <TabsContent value="certifications" className="space-y-4">
+                  <CertificationsForm
+                    data={resumeData.certifications}
+                    onChange={(certifications) => setResumeData({ ...resumeData, certifications })}
+                  />
+                </TabsContent>
+
                 <TabsContent value="additional" className="space-y-4">
                   <AdditionalForm
                     skills={resumeData.skills}
-                    certifications={resumeData.certifications}
                     languages={resumeData.languages}
                     onSkillsChange={(skills) => setResumeData({ ...resumeData, skills })}
-                    onCertificationsChange={(certifications) =>
-                      setResumeData({ ...resumeData, certifications })
-                    }
                     onLanguagesChange={(languages) =>
                       setResumeData({ ...resumeData, languages })
                     }

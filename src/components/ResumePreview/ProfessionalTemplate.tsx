@@ -40,6 +40,26 @@ export const ProfessionalTemplate = ({ data }: ProfessionalTemplateProps) => {
         </div>
       )}
 
+      {/* Education */}
+      {data.education?.length > 0 && (
+        <div className="mb-4">
+          <h2 className="text-sm font-bold mb-2 uppercase" style={{ fontSize: "12pt" }}>
+            Education
+          </h2>
+          {data.education.map((edu) => (
+            <div key={edu.id} className="mb-2">
+              <div className="flex justify-between items-baseline">
+                <h3 className="font-bold">{edu.degree}</h3>
+                <span className="text-sm">
+                  {formatDate(edu.startDate, false)} - {edu.current ? "Present" : formatDate(edu.endDate, false)}
+                </span>
+              </div>
+              <div className="text-sm italic">{edu.institution}</div>
+            </div>
+          ))}
+        </div>
+      )}
+
       {/* Work Experience */}
       {data.workExperience?.length > 0 && (
         <div className="mb-4">
@@ -81,28 +101,25 @@ export const ProfessionalTemplate = ({ data }: ProfessionalTemplateProps) => {
         </div>
       )}
 
-      {/* Education */}
-      {data.education?.length > 0 && (
+      {/* Professional Certifications */}
+      {data.certifications?.length > 0 && (
         <div className="mb-4">
           <h2 className="text-sm font-bold mb-2 uppercase" style={{ fontSize: "12pt" }}>
-            Education
+            Professional Certifications
           </h2>
-          {data.education.map((edu) => (
-            <div key={edu.id} className="mb-2">
-              <div className="flex justify-between items-baseline">
-                <h3 className="font-bold">{edu.degree}</h3>
-                <span className="text-sm">
-                  {formatDate(edu.startDate, false)} - {edu.current ? "Present" : formatDate(edu.endDate, false)}
-                </span>
+          <div className="grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+            {data.certifications.map((cert) => (
+              <div key={cert.id}>
+                <strong>{cert.name}</strong>
+                {cert.provider && <div className="text-muted-foreground">({cert.provider})</div>}
               </div>
-              <div className="text-sm italic">{edu.institution}</div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       )}
 
       {/* Additional Information */}
-      {(data.skills?.length > 0 || data.certifications?.length > 0 || data.languages?.length > 0) && (
+      {(data.skills?.length > 0 || data.languages?.length > 0) && (
         <div className="mb-4">
           <h2 className="text-sm font-bold mb-2 uppercase" style={{ fontSize: "12pt" }}>
             Additional
@@ -111,28 +128,16 @@ export const ProfessionalTemplate = ({ data }: ProfessionalTemplateProps) => {
           {/* Technical Skills */}
           {data.skills?.length > 0 && (
             <div className="mb-3">
-              <h3 className="text-sm font-semibold mb-1">Technical Skills</h3>
-              <p className="text-sm">{data.skills.join(" • ")}</p>
-            </div>
-          )}
-
-          {/* Certifications */}
-          {data.certifications?.length > 0 && (
-            <div className="mb-3">
-              <h3 className="text-sm font-semibold mb-1">Certifications</h3>
-              <ul className="list-none pl-0 text-sm">
-                {data.certifications.map((cert, idx) => (
-                  <li key={idx} className="mb-1">• {cert}</li>
-                ))}
-              </ul>
+              <strong className="text-sm">Technical Skills:</strong>
+              <span className="text-sm"> {data.skills.join(", ")}</span>
             </div>
           )}
 
           {/* Languages */}
           {data.languages?.length > 0 && (
             <div>
-              <h3 className="text-sm font-semibold mb-1">Languages</h3>
-              <p className="text-sm">{data.languages.join(" • ")}</p>
+              <strong className="text-sm">Languages:</strong>
+              <span className="text-sm"> {data.languages.join(", ")}</span>
             </div>
           )}
         </div>
