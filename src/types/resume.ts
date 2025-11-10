@@ -4,6 +4,11 @@ export interface ContactInfo {
   phone: string;
   linkedin?: string;
   location?: string;
+  customLinks?: Array<{
+    id: string;
+    label: string;
+    url: string;
+  }>;
 }
 
 export interface WorkExperience {

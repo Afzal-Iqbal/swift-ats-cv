@@ -40,6 +40,7 @@ const Index = () => {
       phone: "",
       linkedin: "",
       location: "",
+      customLinks: [],
     },
     summary: "",
     workExperience: [],

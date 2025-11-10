@@ -36,6 +36,7 @@ const ResumeLibrary = () => {
           phone: "",
           linkedin: "",
           location: "",
+          customLinks: [],
         },
         summary: "",
         workExperience: [],

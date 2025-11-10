@@ -48,6 +48,13 @@ export const ATSTemplate = ({ data }: ATSTemplateProps) => {
             {data.contactInfo.location}
           </div>
         )}
+        {data.contactInfo.customLinks?.map((link, idx) => (
+          link.label && link.url && (
+            <div key={idx} style={{ marginBottom: "4px" }}>
+              {link.label}: {link.url}
+            </div>
+          )
+        ))}
       </div>
 
       {/* Professional Summary */}

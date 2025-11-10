@@ -24,6 +24,9 @@ export const ProfessionalTemplate = ({ data }: ProfessionalTemplateProps) => {
           {data.contactInfo.phone && <span> | {data.contactInfo.phone}</span>}
           {data.contactInfo.linkedin && <span> | {data.contactInfo.linkedin}</span>}
           {data.contactInfo.location && <span> | {data.contactInfo.location}</span>}
+          {data.contactInfo.customLinks?.map((link, idx) => (
+            link.label && link.url && <span key={idx}> | {link.label}: {link.url}</span>
+          ))}
         </div>
       </div>
 
