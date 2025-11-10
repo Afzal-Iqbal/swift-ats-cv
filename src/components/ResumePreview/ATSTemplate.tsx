@@ -13,42 +13,76 @@ export const ATSTemplate = ({ data }: ATSTemplateProps) => {
   };
 
   return (
-    <div className="bg-white p-8" style={{ fontFamily: "Arial, sans-serif", fontSize: "11pt", lineHeight: "1.5", color: "#000" }}>
-      {/* Header - Single Column */}
-      <div className="mb-4">
-        <h1 className="text-xl font-bold mb-2" style={{ fontSize: "16pt" }}>
+    <div style={{ 
+      fontFamily: "Arial, Helvetica, sans-serif", 
+      fontSize: "11pt", 
+      lineHeight: "1.6", 
+      color: "#000000",
+      backgroundColor: "#ffffff",
+      padding: "40px",
+      maxWidth: "800px",
+      margin: "0 auto"
+    }}>
+      {/* Contact Information - Top of Document */}
+      <div style={{ marginBottom: "20px" }}>
+        <div style={{ fontSize: "18pt", fontWeight: "bold", marginBottom: "8px" }}>
           {data.contactInfo.fullName || "YOUR NAME"}
-        </h1>
-        {data.contactInfo.email && <div className="mb-1">Email: {data.contactInfo.email}</div>}
-        {data.contactInfo.phone && <div className="mb-1">Phone: {data.contactInfo.phone}</div>}
-        {data.contactInfo.linkedin && <div className="mb-1">LinkedIn: {data.contactInfo.linkedin}</div>}
-        {data.contactInfo.location && <div className="mb-1">Location: {data.contactInfo.location}</div>}
+        </div>
+        {data.contactInfo.email && (
+          <div style={{ marginBottom: "4px" }}>
+            {data.contactInfo.email}
+          </div>
+        )}
+        {data.contactInfo.phone && (
+          <div style={{ marginBottom: "4px" }}>
+            {data.contactInfo.phone}
+          </div>
+        )}
+        {data.contactInfo.linkedin && (
+          <div style={{ marginBottom: "4px" }}>
+            {data.contactInfo.linkedin}
+          </div>
+        )}
+        {data.contactInfo.location && (
+          <div style={{ marginBottom: "4px" }}>
+            {data.contactInfo.location}
+          </div>
+        )}
       </div>
 
       {/* Professional Summary */}
       {data.summary && (
-        <div className="mb-4">
-          <h2 className="text-sm font-bold mb-2 uppercase" style={{ fontSize: "12pt" }}>
+        <div style={{ marginBottom: "20px" }}>
+          <div style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", textTransform: "uppercase" }}>
             PROFESSIONAL SUMMARY
-          </h2>
-          <p className="text-sm">{data.summary}</p>
+          </div>
+          <div style={{ textAlign: "justify" }}>
+            {data.summary}
+          </div>
         </div>
       )}
 
       {/* Work Experience */}
       {data.workExperience.length > 0 && (
-        <div className="mb-4">
-          <h2 className="text-sm font-bold mb-2 uppercase" style={{ fontSize: "12pt" }}>
+        <div style={{ marginBottom: "20px" }}>
+          <div style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", textTransform: "uppercase" }}>
             WORK EXPERIENCE
-          </h2>
+          </div>
           {data.workExperience.map((exp) => (
-            <div key={exp.id} className="mb-3">
-              <div className="font-bold">{exp.company} - {exp.role}</div>
-              <div className="text-sm mb-1">
+            <div key={exp.id} style={{ marginBottom: "16px" }}>
+              <div style={{ fontWeight: "bold", marginBottom: "4px" }}>
+                {exp.role}
+              </div>
+              <div style={{ marginBottom: "4px" }}>
+                {exp.company}
+              </div>
+              <div style={{ marginBottom: "8px", fontStyle: "italic" }}>
                 {formatDate(exp.startDate, false)} - {exp.current ? "Present" : formatDate(exp.endDate, false)}
               </div>
               {exp.responsibilities.filter(r => r.trim()).map((resp, idx) => (
-                <div key={idx} className="text-sm mb-1">- {resp}</div>
+                <div key={idx} style={{ marginBottom: "4px", paddingLeft: "20px" }}>
+                  • {resp}
+                </div>
               ))}
             </div>
           ))}
@@ -57,15 +91,19 @@ export const ATSTemplate = ({ data }: ATSTemplateProps) => {
 
       {/* Education */}
       {data.education.length > 0 && (
-        <div className="mb-4">
-          <h2 className="text-sm font-bold mb-2 uppercase" style={{ fontSize: "12pt" }}>
+        <div style={{ marginBottom: "20px" }}>
+          <div style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", textTransform: "uppercase" }}>
             EDUCATION
-          </h2>
+          </div>
           {data.education.map((edu) => (
-            <div key={edu.id} className="mb-2">
-              <div className="font-bold">{edu.institution}</div>
-              <div className="text-sm">{edu.degree}</div>
-              <div className="text-sm">
+            <div key={edu.id} style={{ marginBottom: "12px" }}>
+              <div style={{ fontWeight: "bold", marginBottom: "4px" }}>
+                {edu.degree}
+              </div>
+              <div style={{ marginBottom: "4px" }}>
+                {edu.institution}
+              </div>
+              <div style={{ fontStyle: "italic" }}>
                 {formatDate(edu.startDate, false)} - {edu.current ? "Present" : formatDate(edu.endDate, false)}
               </div>
             </div>
@@ -75,33 +113,39 @@ export const ATSTemplate = ({ data }: ATSTemplateProps) => {
 
       {/* Skills */}
       {data.skills.length > 0 && (
-        <div className="mb-4">
-          <h2 className="text-sm font-bold mb-2 uppercase" style={{ fontSize: "12pt" }}>
+        <div style={{ marginBottom: "20px" }}>
+          <div style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", textTransform: "uppercase" }}>
             SKILLS
-          </h2>
-          <div className="text-sm">{data.skills.join(", ")}</div>
+          </div>
+          <div>
+            {data.skills.filter(s => s.trim()).join(" • ")}
+          </div>
         </div>
       )}
 
       {/* Certifications */}
-      {data.certifications.length > 0 && (
-        <div className="mb-4">
-          <h2 className="text-sm font-bold mb-2 uppercase" style={{ fontSize: "12pt" }}>
+      {data.certifications.length > 0 && data.certifications.some(c => c.trim()) && (
+        <div style={{ marginBottom: "20px" }}>
+          <div style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", textTransform: "uppercase" }}>
             CERTIFICATIONS
-          </h2>
-          {data.certifications.map((cert, idx) => (
-            <div key={idx} className="text-sm mb-1">- {cert}</div>
+          </div>
+          {data.certifications.filter(c => c.trim()).map((cert, idx) => (
+            <div key={idx} style={{ marginBottom: "4px" }}>
+              {cert}
+            </div>
           ))}
         </div>
       )}
 
       {/* Languages */}
-      {data.languages.length > 0 && (
+      {data.languages.length > 0 && data.languages.some(l => l.trim()) && (
         <div>
-          <h2 className="text-sm font-bold mb-2 uppercase" style={{ fontSize: "12pt" }}>
+          <div style={{ fontSize: "13pt", fontWeight: "bold", marginBottom: "8px", textTransform: "uppercase" }}>
             LANGUAGES
-          </h2>
-          <div className="text-sm">{data.languages.join(", ")}</div>
+          </div>
+          <div>
+            {data.languages.filter(l => l.trim()).join(" • ")}
+          </div>
         </div>
       )}
     </div>
