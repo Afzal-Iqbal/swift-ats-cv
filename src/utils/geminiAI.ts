@@ -1,4 +1,4 @@
-const GEMINI_API_KEY = "AIzaSyDcm3Ovtf6kVmRlXGGk2ikzVnZcyJWkIKU";
+const GEMINI_API_KEY = "AIzaSyAjwGcARhexh27rgdVvSn_5cQGYlUWjvB4";
 const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${GEMINI_API_KEY}`;
 
 export interface OptimizationSuggestion {
