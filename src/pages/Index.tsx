@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useFirestore } from "@/hooks/useFirestore";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -17,7 +18,7 @@ import { ModernTemplate } from "@/components/ResumePreview/ModernTemplate";
 import { ATSTemplate } from "@/components/ResumePreview/ATSTemplate";
 import { AIOptimizer } from "@/components/AIOptimizer";
 import { ResumeData, ResumeTemplate } from "@/types/resume";
-import { Download, FileText, LogOut, Moon, Sun, Menu, Eye, Edit3 } from "lucide-react";
+import { Download, FileText, LogOut, Moon, Sun, Menu, Eye, Edit3, FolderOpen } from "lucide-react";
 import { toast } from "sonner";
 import html2pdf from "html2pdf.js";
 
@@ -25,6 +26,8 @@ const Index = () => {
   const { user, logout } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const { resumes, createResume, updateResume } = useFirestore();
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   
   const [activeTab, setActiveTab] = useState("contact");
   const [template, setTemplate] = useState<ResumeTemplate>("professional");
@@ -46,13 +49,30 @@ const Index = () => {
     languages: [],
   });
 
-  // Load first resume or create new one
+  // Load resume from URL parameter or first resume
   useEffect(() => {
+    const resumeIdFromUrl = searchParams.get("resumeId");
+    
+    if (resumeIdFromUrl && resumes.length > 0) {
+      const resume = resumes.find(r => r.id === resumeIdFromUrl);
+      if (resume) {
+        setCurrentResumeId(resume.id);
+        const updatedData = {
+          ...resume.data,
+          workExperience: resume.data.workExperience.map(exp => ({
+            ...exp,
+            location: exp.location || ""
+          }))
+        };
+        setResumeData(updatedData);
+        return;
+      }
+    }
+    
     if (resumes.length > 0 && !currentResumeId) {
       const firstResume = resumes[0];
       setCurrentResumeId(firstResume.id);
       
-      // Ensure all work experience entries have location field
       const updatedData = {
         ...firstResume.data,
         workExperience: firstResume.data.workExperience.map(exp => ({
@@ -63,12 +83,11 @@ const Index = () => {
       
       setResumeData(updatedData);
     } else if (resumes.length === 0 && user && !currentResumeId) {
-      // Create initial resume
       createResume("My Resume", resumeData).then((id) => {
         setCurrentResumeId(id);
       });
     }
-  }, [resumes, user, currentResumeId]);
+  }, [resumes, user, currentResumeId, searchParams]);
 
   // Auto-save to Firestore with debouncing
   useEffect(() => {
@@ -109,6 +128,7 @@ const Index = () => {
   const handleLogout = async () => {
     try {
       await logout();
+      navigate("/auth");
     } catch (error) {
       console.error('Logout error:', error);
     }
@@ -146,6 +166,14 @@ const Index = () => {
                 <SheetContent side="right" className="w-64">
                   <div className="flex flex-col gap-4 mt-8">
                     <Button
+                      onClick={() => navigate("/library")}
+                      variant="ghost"
+                      className="w-full justify-start"
+                    >
+                      <FolderOpen className="h-5 w-5 mr-2" />
+                      My Resumes
+                    </Button>
+                    <Button
                       variant="ghost"
                       size="icon"
                       onClick={toggleTheme}
@@ -175,6 +203,14 @@ const Index = () => {
 
               {/* Desktop actions */}
               <div className="hidden lg:flex items-center gap-2">
+                <Button
+                  onClick={() => navigate("/library")}
+                  variant="ghost"
+                  className="text-primary-foreground hover:bg-primary-foreground/10"
+                >
+                  <FolderOpen className="mr-2 h-4 w-4" />
+                  My Resumes
+                </Button>
                 <Button
                   variant="ghost"
                   size="icon"
