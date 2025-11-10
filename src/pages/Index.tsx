@@ -13,6 +13,7 @@ import { ModernTemplate } from "@/components/ResumePreview/ModernTemplate";
 import { ResumeData, ResumeTemplate } from "@/types/resume";
 import { Download, FileText } from "lucide-react";
 import { toast } from "sonner";
+import html2pdf from "html2pdf.js";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("contact");
@@ -34,7 +35,27 @@ const Index = () => {
   });
 
   const handleDownloadPDF = () => {
-    toast.info("PDF download feature coming soon! For now, use your browser's print function (Ctrl/Cmd + P) and save as PDF.");
+    const element = document.getElementById('resume-preview');
+    const fileName = resumeData.contactInfo.fullName 
+      ? `${resumeData.contactInfo.fullName.replace(/\s+/g, '_')}_Resume.pdf`
+      : 'Resume.pdf';
+    
+    const opt = {
+      margin: 0,
+      filename: fileName,
+      image: { type: 'jpeg' as const, quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' as const }
+    };
+
+    toast.promise(
+      html2pdf().set(opt).from(element).save(),
+      {
+        loading: 'Generating PDF...',
+        success: 'PDF downloaded successfully!',
+        error: 'Failed to generate PDF. Please try again.',
+      }
+    );
   };
 
   return (
