@@ -20,7 +20,6 @@ export const WorkExperienceForm = ({ data, onChange }: WorkExperienceFormProps) 
         id: Date.now().toString(),
         company: "",
         role: "",
-        location: "",
         startDate: "",
         endDate: "",
         current: false,
@@ -92,18 +91,6 @@ export const WorkExperienceForm = ({ data, onChange }: WorkExperienceFormProps) 
                       value={exp.company}
                       onChange={(e) => updateExperience(exp.id, "company", e.target.value)}
                       placeholder="Tech Corp"
-                      className="mt-1.5"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label>Location *</Label>
-                    <Input
-                      value={exp.location}
-                      onChange={(e) => updateExperience(exp.id, "location", e.target.value)}
-                      placeholder="San Francisco, CA"
                       className="mt-1.5"
                     />
                   </div>

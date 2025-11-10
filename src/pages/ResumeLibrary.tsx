@@ -44,7 +44,7 @@ const ResumeLibrary = () => {
         projects: [],
         skills: [],
         certifications: [],
-        languages: [],
+        additionalItems: [],
       };
 
       const newId = await createResume("New Resume", newResumeData);

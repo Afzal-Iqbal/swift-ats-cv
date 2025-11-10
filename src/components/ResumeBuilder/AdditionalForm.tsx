@@ -7,16 +7,16 @@ import { Separator } from "@/components/ui/separator";
 
 interface AdditionalFormProps {
   skills: string[];
-  languages: string[];
+  additionalItems: string[];
   onSkillsChange: (skills: string[]) => void;
-  onLanguagesChange: (languages: string[]) => void;
+  onAdditionalItemsChange: (items: string[]) => void;
 }
 
 export const AdditionalForm = ({
   skills,
-  languages,
+  additionalItems,
   onSkillsChange,
-  onLanguagesChange,
+  onAdditionalItemsChange,
 }: AdditionalFormProps) => {
   const addSkill = () => {
     onSkillsChange([...skills, ""]);
@@ -32,18 +32,18 @@ export const AdditionalForm = ({
     onSkillsChange(skills.filter((_, i) => i !== index));
   };
 
-  const addLanguage = () => {
-    onLanguagesChange([...languages, ""]);
+  const addAdditionalItem = () => {
+    onAdditionalItemsChange([...additionalItems, ""]);
   };
 
-  const updateLanguage = (index: number, value: string) => {
-    const newLanguages = [...languages];
-    newLanguages[index] = value;
-    onLanguagesChange(newLanguages);
+  const updateAdditionalItem = (index: number, value: string) => {
+    const newItems = [...additionalItems];
+    newItems[index] = value;
+    onAdditionalItemsChange(newItems);
   };
 
-  const removeLanguage = (index: number) => {
-    onLanguagesChange(languages.filter((_, i) => i !== index));
+  const removeAdditionalItem = (index: number) => {
+    onAdditionalItemsChange(additionalItems.filter((_, i) => i !== index));
   };
 
   return (
@@ -90,25 +90,25 @@ export const AdditionalForm = ({
 
         <Separator />
 
-        {/* Languages Section */}
+        {/* Additional Items Section */}
         <div>
-          <Label className="text-base font-semibold">Languages</Label>
+          <Label className="text-base font-semibold">Additional Information</Label>
           <p className="text-sm text-muted-foreground mt-1 mb-3">
-            Add languages you speak and your proficiency level
+            Add any other relevant information (languages, interests, achievements, etc.)
           </p>
           <div className="space-y-2">
-            {languages.map((language, index) => (
+            {additionalItems.map((item, index) => (
               <div key={index} className="flex gap-2">
                 <Input
-                  value={language}
-                  onChange={(e) => updateLanguage(index, e.target.value)}
+                  value={item}
+                  onChange={(e) => updateAdditionalItem(index, e.target.value)}
                   placeholder="e.g., English (Native), Spanish (Fluent)"
                 />
                 <Button
                   type="button"
                   variant="ghost"
                   size="icon"
-                  onClick={() => removeLanguage(index)}
+                  onClick={() => removeAdditionalItem(index)}
                 >
                   <X className="h-4 w-4" />
                 </Button>
@@ -117,11 +117,11 @@ export const AdditionalForm = ({
             <Button
               type="button"
               variant="outline"
-              onClick={addLanguage}
+              onClick={addAdditionalItem}
               className="w-full"
             >
               <Plus className="h-4 w-4 mr-2" />
-              Add Language
+              Add Item
             </Button>
           </div>
         </div>

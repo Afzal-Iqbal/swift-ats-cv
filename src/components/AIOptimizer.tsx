@@ -29,7 +29,7 @@ export const AIOptimizer = ({ resumeData }: AIOptimizerProps) => {
       text += `WORK EXPERIENCE\n`;
       resumeData.workExperience.forEach(exp => {
         text += `${exp.role} — ${exp.company}\n`;
-        text += `${exp.location} | ${exp.startDate} – ${exp.current ? 'Present' : exp.endDate}\n`;
+        text += `${exp.startDate} – ${exp.current ? 'Present' : exp.endDate}\n`;
         exp.responsibilities.forEach(resp => {
           if (resp.trim()) text += `• ${resp}\n`;
         });

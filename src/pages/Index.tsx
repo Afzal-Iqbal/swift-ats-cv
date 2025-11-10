@@ -50,7 +50,7 @@ const Index = () => {
     projects: [],
     skills: [],
     certifications: [],
-    languages: [],
+    additionalItems: [],
   });
 
   // Load resume from URL parameter or first resume
@@ -75,9 +75,9 @@ const Index = () => {
           ...resume.data,
           certifications: migratedCertifications,
           workExperience: resume.data.workExperience.map(exp => ({
-            ...exp,
-            location: exp.location || ""
-          }))
+            ...exp
+          })),
+          additionalItems: (resume.data as any).additionalItems || []
         };
         setResumeData(updatedData);
         return;
@@ -101,9 +101,9 @@ const Index = () => {
         ...firstResume.data,
         certifications: migratedCertifications,
         workExperience: firstResume.data.workExperience.map(exp => ({
-          ...exp,
-          location: exp.location || ""
-        }))
+          ...exp
+        })),
+        additionalItems: (firstResume.data as any).additionalItems || []
       };
       
       setResumeData(updatedData);
@@ -357,10 +357,10 @@ const Index = () => {
                 <TabsContent value="additional" className="space-y-4">
                   <AdditionalForm
                     skills={resumeData.skills}
-                    languages={resumeData.languages}
+                    additionalItems={resumeData.additionalItems}
                     onSkillsChange={(skills) => setResumeData({ ...resumeData, skills })}
-                    onLanguagesChange={(languages) =>
-                      setResumeData({ ...resumeData, languages })
+                    onAdditionalItemsChange={(additionalItems) =>
+                      setResumeData({ ...resumeData, additionalItems })
                     }
                   />
                 </TabsContent>
