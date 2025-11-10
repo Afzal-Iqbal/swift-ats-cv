@@ -25,10 +25,18 @@ export interface ResumeDocument {
   updatedAt: Timestamp;
 }
 
-export const useFirestore = () => {
+interface UseFirestoreReturn {
+  resumes: ResumeDocument[];
+  loading: boolean;
+  createResume: (resumeTitle: string, data: ResumeData) => Promise<string>;
+  updateResume: (resumeId: string, data: Partial<ResumeData>) => Promise<void>;
+  deleteResume: (resumeId: string) => Promise<void>;
+}
+
+export const useFirestore = (): UseFirestoreReturn => {
   const { user } = useAuth();
   const [resumes, setResumes] = useState<ResumeDocument[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     if (!user) {
@@ -62,7 +70,7 @@ export const useFirestore = () => {
     return () => unsubscribe();
   }, [user]);
 
-  const createResume = async (resumeTitle: string, data: ResumeData) => {
+  const createResume = async (resumeTitle: string, data: ResumeData): Promise<string> => {
     if (!user) throw new Error('User not authenticated');
 
     try {
@@ -82,7 +90,7 @@ export const useFirestore = () => {
     }
   };
 
-  const updateResume = async (resumeId: string, data: Partial<ResumeData>) => {
+  const updateResume = async (resumeId: string, data: Partial<ResumeData>): Promise<void> => {
     if (!user) throw new Error('User not authenticated');
 
     try {
@@ -98,7 +106,7 @@ export const useFirestore = () => {
     }
   };
 
-  const deleteResume = async (resumeId: string) => {
+  const deleteResume = async (resumeId: string): Promise<void> => {
     if (!user) throw new Error('User not authenticated');
 
     try {
@@ -117,5 +125,5 @@ export const useFirestore = () => {
     createResume,
     updateResume,
     deleteResume
-  };
+  } as const;
 };
